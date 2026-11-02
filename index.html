@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            padding: 40px 32px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 28px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            background: #fafafa;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #result {
+            margin-top: 24px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #result .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 15px;
+            color: #444;
+        }
+
+        #result .result-row .value {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        #result .result-row.total {
+            border-top: 1px solid #ddd;
+            margin-top: 6px;
+            padding-top: 10px;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        #result .result-row.total .value {
+            color: #764ba2;
+            font-size: 18px;
+        }
+
+        .error-area {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #fdecea;
+            border: 1px solid #f5c6cb;
+            border-radius: 10px;
+            color: #c0392b;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-area.show {
+            display: block;
+        }
+
+        .placeholder-text {
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Tip Calculator</h1>
+
+        <div class="form-group">
+            <label for="bill">Bill Amount ($)</label>
+            <input type="number" id="bill" placeholder="e.g. 80" step="0.01" min="0">
+        </div>
+
+        <div class="form-group">
+            <label for="tip">Tip Percentage</label>
+            <select id="tip">
+                <option value="10">10%</option>
+                <option value="15" selected>15%</option>
+                <option value="20">20%</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="people">Number of People</label>
+            <input type="number" id="people" placeholder="e.g. 3" min="1" step="1" value="1">
+        </div>
+
+        <button id="calculate">Calculate</button>
+
+        <div id="error" class="error-area" style="display:none;"></div>
+
+        <div id="result">
+            <span class="placeholder-text">Enter details and click Calculate to see results.</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
