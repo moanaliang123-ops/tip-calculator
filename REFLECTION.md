@@ -2,22 +2,18 @@
 
 ## Which tool for which task?
 
-Of the four Cursor tools, I would match them to tasks like this:
+- **Fixing a typo → Tab.** It's the fastest way. I just move the cursor there and press Tab to accept the fix. Opening a chat panel for one wrong letter would be overkill.
 
-- **Fixing a typo → Tab autocomplete.** A typo is a tiny, local change. Tab already predicts the corrected text as I move the cursor there, so accepting (Tab) or rejecting (Esc) is the fastest path — opening a panel for a one-character fix would be slower than the fix itself.
+- **Renaming a variable in one function → Inline edit (Ctrl + K).** I can select the function, type something like "rename bill to billAmount", and check the diff before accepting. It's quick and I can see exactly what changed.
 
-- **Renaming a variable in one function → Inline edit (Ctrl/Cmd + K).** The change is confined to a selection I can highlight, and I can state the intent in one sentence ("rename `bill` to `billAmount`"). The diff view lets me verify that every occurrence — and only those occurrences — changed before I accept.
+- **Understanding someone else's code → Ask mode.** I only want an explanation, not changes. So I ask questions with @file and just read the answer, and nothing gets edited by accident.
 
-- **Understanding someone else's code → Ask mode (with @file / @folder).** When I only want an explanation, I don't want the AI to touch anything. Ask mode reads the code and answers questions without producing edits, and @-mentions let me point it at exactly the files I care about.
-
-- **Adding a whole new feature → Agent.** A real feature spans multiple files and steps: planning, creating new files, wiring them together, and running commands. The Agent handles that multi-step flow, and the checkpoint system means I can roll the whole thing back if the result is wrong.
-
-In short: the bigger and more multi-file the change, the more autonomy I give the tool — Tab for keystrokes, inline edit for one selection, Ask for questions, Agent for features.
+- **Adding a whole new feature → Agent.** A new feature usually touches more than one file, so I let the Agent plan and do the steps, then I review the changes and test them myself.
 
 ## One thing the AI did that I had to check or correct
 
-When the Agent redesigned the page, it replaced the tip-percentage dropdown with a row of buttons — but it never updated `script.js`, which was still reading the old `<select id="tip">` element. The result: clicking **Calculate** silently threw an error and nothing happened at all. The page *looked* finished, but the core feature was completely broken.
+When the AI redesigned the page, it changed the tip dropdown into buttons, but it forgot to update script.js. The script was still looking for the old dropdown, so the Calculate button did nothing at all. The page looked fine, but it was actually broken.
 
-I caught this only because I tested by hand instead of trusting the diff. I described the symptom back in plain words ("clicking Calculate does nothing"), and the fix required wiring up the new buttons, making the result area visible again, and re-testing every case: `bill 80, tip 15%, 3 people → tip 12.00, total 92.00, 30.67 each`, plus the edge cases (empty bill, negative bill, zero people, non-integer people).
+I only noticed because I tested it by hand. I typed in bill 80, tip 15%, 3 people, clicked Calculate, and nothing happened. After I told the AI "clicking Calculate does nothing", it fixed the buttons and I tested again: tip 12.00, total 92.00, 30.67 each. I also tried an empty bill and 0 people, and the error messages showed up correctly.
 
-Lesson learned: an AI-generated diff that looks clean can still be functionally broken — especially when one file's change depends on another file being updated too. Always run the happy path *and* the edge cases before calling it done.
+What I learned: just because the AI says it's done doesn't mean it actually works. Always test it yourself.
