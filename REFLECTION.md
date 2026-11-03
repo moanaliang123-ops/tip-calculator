@@ -2,18 +2,15 @@
 
 ## Which tool for which task?
 
-- **Fixing a typo → Tab.** It's the fastest way. I just move the cursor there and press Tab to accept the fix. Opening a chat panel for one wrong letter would be overkill.
-
-- **Renaming a variable in one function → Inline edit (Ctrl + K).** I can select the function, type something like "rename bill to billAmount", and check the diff before accepting. It's quick and I can see exactly what changed.
-
-- **Understanding someone else's code → Ask mode.** I only want an explanation, not changes. So I ask questions with @file and just read the answer, and nothing gets edited by accident.
-
-- **Adding a whole new feature → Agent.** A new feature usually touches more than one file, so I let the Agent plan and do the steps, then I review the changes and test them myself.
+- **Fixing a typo → Tab.** Just press Tab to accept the fix. It's the fastest way.
+- **Renaming a variable in one function → Inline edit (Ctrl + K).** Select the code, type what I want, check the diff, accept.
+- **Understanding someone else's code → Ask mode.** I only want an answer, not changes, so I ask with @file and nothing gets edited.
+- **Adding a whole new feature → Agent.** It can do many steps across files, and then I review and test the result.
 
 ## One thing the AI did that I had to check or correct
 
-When the AI redesigned the page, it changed the tip dropdown into buttons, but it forgot to update script.js. The script was still looking for the old dropdown, so the Calculate button did nothing at all. The page looked fine, but it was actually broken.
+The AI changed the tip dropdown into buttons, but forgot to update script.js. So the Calculate button did nothing. The page looked fine, but it was actually broken.
 
-I only noticed because I tested it by hand. I typed in bill 80, tip 15%, 3 people, clicked Calculate, and nothing happened. After I told the AI "clicking Calculate does nothing", it fixed the buttons and I tested again: tip 12.00, total 92.00, 30.67 each. I also tried an empty bill and 0 people, and the error messages showed up correctly.
+I found this by testing it myself. I typed 80, 15%, 3 people and clicked Calculate — nothing happened. I told the AI, it fixed the buttons, and then it worked: tip 12.00, total 92.00, 30.67 each. Empty bill and 0 people also showed error messages correctly.
 
-What I learned: just because the AI says it's done doesn't mean it actually works. Always test it yourself.
+Lesson: don't just trust "done". Always test it yourself.
